@@ -13,7 +13,7 @@ from states import ProgramState
 router = Router()
 
 WEBAPP_URL = "https://vlady6113-blip.github.io/motion-habitar/webapp/"
-MERCADOPAGO_LINK = "https://mpago.li/29UE9Le"
+MERCADOPAGO_LINK = "https://mpago.la/2Ghk3Vm"
 WHATSAPP_LINK = "https://wa.me/5491132787456?text=Hola%21+Quisiera+info+sobre+el+programa+HABITAR"
 
 

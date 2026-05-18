@@ -75,7 +75,7 @@ def init_db():
             INSERT INTO courses (slug, title, subtitle, description, price_promo, price_regular, mercadopago_link)
             VALUES ('habitar', 'HABITAR', 'Un recorrido para volver a conectar con tu cuerpo',
                     'Cuatro experiencias de movimiento consciente disenadas para acompanarte de vuelta a tu cuerpo. Sin exigencia, sin velocidad. Solo presencia.',
-                    29000, 45000, 'https://mpago.li/29UE9Le')
+                    29000, 45000, 'https://mpago.la/2Ghk3Vm')
         """)
         course_id = conn.execute("SELECT id FROM courses WHERE slug='habitar'").fetchone()[0]
 

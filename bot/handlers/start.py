@@ -35,7 +35,7 @@ async def cmd_start(message: Message, state: FSMContext):
             )],
             [InlineKeyboardButton(
                 text=f"💳 Comprar ({price} ARS)",
-                url="https://mpago.li/29UE9Le",
+                url="https://mpago.la/2Ghk3Vm",
             )],
             [InlineKeyboardButton(
                 text="💬 Consultar por WhatsApp",
