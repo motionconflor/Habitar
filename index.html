@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOTiON – HABITAR | Movimiento consciente</title>
+    <meta name="description" content="Un recorrido de cuatro experiencias para que vuelvas a conectar con tu cuerpo.">
+    <meta name="theme-color" content="#D4C5B9">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+    <style>
+        :root {
+            --beige: #D4C5B9; --beige-light: #E8DDD4; --beige-dark: #B8A898;
+            --olive: #8B9A6E; --olive-dark: #6B7A55; --olive-light: #A3AF89;
+            --sand: #C4A882; --brown: #A08070; --terracotta: #D4956A;
+            --white: #FAF7F4; --off-white: #F5F0EB; --card: #EDE7E0;
+            --text: #3A322A; --text-light: #6B6058; --text-muted: #9A8E85;
+            --radius: 20px; --radius-sm: 14px;
+            --shadow: 0 2px 16px rgba(58,50,42,0.06);
+            --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --max-w: 1100px;
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body {
+            font-family: var(--font); background: var(--white); color: var(--text);
+            line-height: 1.6; font-size: 16px;
+        }
+
+        /* ── NAV ── */
+        .nav { max-width: var(--max-w); margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo { font-size: 22px; font-weight: 600; letter-spacing: -0.3px; color: var(--text); display: flex; align-items: center; gap: 8px; }
+        .nav-links { display: flex; gap: 28px; list-style: none; }
+        .nav-links a { color: var(--text-light); font-size: 14px; font-weight: 500; text-decoration: none; transition: color .2s; }
+        .nav-links a:hover { color: var(--text); }
+
+        /* ── HERO ── */
+        .hero { padding: 40px 24px 56px; text-align: center; max-width: 740px; margin: 0 auto; }
+        .hero-logo { margin-bottom: 20px; }
+        .hero-logo img { width: 120px; height: 120px; object-fit: cover; border-radius: 50%; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 100px; background: var(--off-white); font-size: 13px; font-weight: 600; color: var(--text-light); margin-bottom: 16px; }
+        .hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--olive); }
+        .hero h1 { font-size: clamp(32px, 7vw, 56px); font-weight: 300; line-height: 1.1; letter-spacing: -1px; margin-bottom: 16px; }
+        .hero h1 strong { font-weight: 500; }
+        .hero .sub { font-size: 15px; color: var(--text-muted); letter-spacing: .5px; margin-bottom: 20px; }
+        .hero p { font-size: 18px; color: var(--text-light); line-height: 1.7; max-width: 520px; margin: 0 auto 32px; }
+        .hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px;
+            border-radius: var(--radius-sm); font-size: 15px; font-weight: 600;
+            text-decoration: none; transition: all .25s; cursor: pointer; border: none; font-family: var(--font);
+        }
+        .btn:active { transform: scale(.97); }
+        .btn-primary { background: var(--olive); color: #fff; }
+        .btn-primary:hover { background: var(--olive-dark); transform: translateY(-1px); }
+        .btn-dark { background: var(--text); color: var(--white); }
+        .btn-dark:hover { background: #2A221A; transform: translateY(-1px); }
+        .btn-outline { background: transparent; color: var(--text); border: 1.5px solid var(--beige-dark); }
+        .btn-outline:hover { border-color: var(--text); }
+        .btn-large { padding: 18px 36px; font-size: 17px; }
+
+        /* ── PROGRAM ── */
+        .program { padding: 56px 24px; max-width: var(--max-w); margin: 0 auto; }
+        .program h2 {
+            text-align: center; font-size: 40px; font-weight: 700;
+            letter-spacing: 4px; text-transform: uppercase;
+            color: var(--terracotta); margin-bottom: 8px;
+        }
+        .program .subtitle { text-align: center; color: var(--text-light); margin-bottom: 48px; font-size: 16px; }
+        .states-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+        .state-card {
+            background: var(--card); border-radius: var(--radius); padding: 28px 24px;
+            cursor: pointer; transition: all .3s; border-left: 4px solid var(--card-accent, var(--olive));
+            text-decoration: none; color: inherit; display: block;
+        }
+        .state-card:hover { box-shadow: 0 8px 32px rgba(58,50,42,.12); transform: translateY(-3px); }
+        .state-num { font-size: 12px; font-weight: 700; color: var(--card-accent); letter-spacing: 2px; margin-bottom: 8px; }
+        .state-card h3 { font-size: 22px; font-weight: 400; margin-bottom: 8px; }
+        .state-card .phrase { font-size: 15px; color: var(--text); line-height: 1.6; margin-bottom: 12px; font-style: italic; }
+        .state-card .feel { font-size: 12px; color: var(--text-muted); letter-spacing: .5px; margin-bottom: 12px; }
+        .state-desc { font-size: 14px; color: var(--text-light); line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height .4s ease, opacity .3s ease; opacity: 0; }
+        .state-desc.expanded { max-height: 400px; opacity: 1; margin-top: 10px; }
+        .btn-leer { display: inline-block; margin-top: 8px; font-size: 13px; font-weight: 600; color: var(--olive); cursor: pointer; text-decoration: underline; background: none; border: none; padding: 0; font-family: var(--font); }
+        .btn-leer:hover { color: var(--olive-dark); }
+
+        /* ── HOW ── */
+        .how { padding: 64px 24px; background: var(--off-white); }
+        .how-inner { max-width: var(--max-w); margin: 0 auto; text-align: center; }
+        .how-inner h2 { font-size: 36px; font-weight: 300; margin-bottom: 40px; }
+        .path { display: flex; flex-direction: column; align-items: center; gap: 0; position: relative; }
+        .path::before {
+            content: ''; position: absolute; top: 24px; bottom: 24px; left: 50%;
+            width: 2px; background: var(--beige-dark); transform: translateX(-50%);
+        }
+        .step-wrap { display: flex; align-items: center; width: 100%; max-width: 700px; position: relative; z-index: 1; }
+        .step-wrap:nth-child(odd) { justify-content: flex-start; padding-right: calc(50% + 24px); }
+        .step-wrap:nth-child(even) { justify-content: flex-end; padding-left: calc(50% + 24px); }
+        .step {
+            background: var(--white); border-radius: var(--radius); padding: 24px 28px;
+            box-shadow: var(--shadow); text-align: left; max-width: 320px; width: 100%;
+        }
+        .step-icon { width: 48px; height: 48px; border-radius: 50%; background: var(--olive); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; font-size: 18px; font-weight: 600; color: #fff; }
+        .step h4 { font-size: 17px; font-weight: 600; margin-bottom: 8px; color: var(--text); }
+        .step p { font-size: 14px; color: var(--text-light); line-height: 1.6; }
+        .how .highlight { margin-top: 32px; font-size: 16px; color: var(--olive-dark); font-weight: 600; }
+        @media (max-width: 700px) {
+            .path::before { left: 24px; transform: none; }
+            .step-wrap:nth-child(odd), .step-wrap:nth-child(even) { justify-content: flex-start; padding-left: 48px; padding-right: 0; }
+        }
+
+        /* ── PRICING ── */
+        .pricing { padding: 64px 24px; max-width: 500px; margin: 0 auto; text-align: center; }
+        .pricing h2 { font-size: 48px; font-weight: 200; margin-bottom: 4px; }
+        .pricing-sub { color: var(--olive); font-weight: 500; margin-bottom: 4px; }
+        .pricing-reg { color: var(--text-muted); text-decoration: line-through; margin-bottom: 24px; }
+        .pricing-features { list-style: none; text-align: left; max-width: 360px; margin: 0 auto 28px; display: flex; flex-direction: column; gap: 12px; }
+        .pricing-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-light); }
+        .pricing-features .check { color: var(--olive); font-weight: 700; flex-shrink: 0; }
+        .pricing-note { font-size: 13px; color: var(--text-muted); margin-top: 16px; }
+
+        /* ── ABOUT ── */
+        .about { padding: 64px 24px; background: var(--off-white); }
+        .about-inner { max-width: 800px; margin: 0 auto; display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap; }
+        .about-img { flex: 0 0 280px; border-radius: var(--radius); overflow: hidden; }
+        .about-img img { width: 100%; height: auto; display: block; }
+        .about-text { flex: 1; min-width: 280px; }
+        .about-text h2 { font-size: 32px; font-weight: 300; margin-bottom: 16px; }
+        .about-text p { font-size: 16px; color: var(--text-light); line-height: 1.8; margin-bottom: 12px; }
+        .about-text .more { display: none; }
+        .about-text.expanded .more { display: block; }
+        .btn-read { display: inline-block; margin-top: 8px; font-size: 14px; font-weight: 600; color: var(--olive); cursor: pointer; text-decoration: underline; }
+        @media (max-width: 700px) { .about-inner { flex-direction: column; text-align: center; } .about-img { flex: 0 0 auto; max-width: 240px; margin: 0 auto; } }
+
+        /* ── FOOTER ── */
+        footer { padding: 48px 24px; text-align: center; }
+        footer .cta-title { font-size: 28px; font-weight: 300; margin-bottom: 24px; }
+        footer .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 32px; }
+        footer .note { font-size: 13px; color: var(--text-muted); }
+        footer .handle { font-size: 12px; color: var(--text-muted); letter-spacing: 1px; margin-top: 4px; }
+
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            .states-grid { grid-template-columns: 1fr; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .btn { width: 100%; justify-content: center; }
+            footer .cta-btns { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="#" class="nav-logo" onclick="return false" style="text-decoration:none;color:var(--text);font-size:22px;font-weight:600;letter-spacing:-0.3px;">MOTiON</a>
+        <ul class="nav-links">
+            <li><a href="#programa">Programa</a></li>
+            <li><a href="#como-funciona">Cómo funciona</a></li>
+            <li><a href="#precio">Precio</a></li>
+            <li><a href="https://www.instagram.com/motion.moviento.consciente" target="_blank">Instagram</a></li>
+            <li><a href="#empezar">Empezar</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-badge"><span class="dot"></span>HABITAR</div>
+        <h1>Volvé a conectar con tu cuerpo</h1>
+        <p>Cuatro experiencias pensadas para encontrar calma, presencia y movimiento sin exigencias.</p>
+        <div class="hero-buttons">
+            <a href="https://mpago.li/29UE9Le" class="btn btn-primary" target="_blank">Comenzar experiencia</a>
+            <a href="https://t.me/pilates_courses_bot" class="btn btn-dark" target="_blank">Telegram</a>
+            <a href="https://wa.me/5491132787456?text=%C2%A1Hola!+Quisiera+info+sobre+HABITAR" class="btn btn-outline" target="_blank">WhatsApp</a>
+        </div>
+    </section>
+
+    <section class="program" id="programa">
+        <h2>HABITAR</h2>
+        <p class="subtitle">Aquí comienza el recorrido que te lleva hacia vos.</p>
+        <div class="states-grid">
+            <div class="state-card" style="--card-accent:#8B9A6E">
+                <div class="state-num">01</div>
+                <h3>PAUSAR</h3>
+                <p class="phrase">"En la pausa también existe movimiento."</p>
+                <p class="feel">Calma · Quietud · Escucha</p>
+                <button class="btn-leer" onclick="toggleDesc(this)">Leer más</button>
+                <div class="state-desc">
+                    <p>Una experiencia suave y consciente pensada para esos días donde el cuerpo y la mente necesitan detenerse.</p>
+                    <p>A través de la respiración consciente, movimientos amables y el registro corporal, PAUSAR propone darte un espacio para desacelerar y conectar con el momento presente.</p>
+                </div>
+            </div>
+            <div class="state-card" style="--card-accent:#C4A882">
+                <div class="state-num">02</div>
+                <h3>LIBERAR</h3>
+                <p class="phrase">"No todo lo que sostengo me pertenece."</p>
+                <p class="feel">Alivio · Expansión · Suavidad</p>
+                <button class="btn-leer" onclick="toggleDesc(this)">Leer más</button>
+                <div class="state-desc">
+                    <p>Diseñado para momentos de sobrecarga física y mental. Una experiencia que atraviesa movimientos fluidos, generando sensación de liviandad y amplitud corporal.</p>
+                    <p>Ideal para liberar tensiones acumuladas.</p>
+                </div>
+            </div>
+            <div class="state-card" style="--card-accent:#D4956A">
+                <div class="state-num">03</div>
+                <h3>FLUIR</h3>
+                <p class="phrase">"¿Qué ritmo adoptaría mi cuerpo si me permitiese soltar el control?"</p>
+                <p class="feel">Liviandad · Ritmo · Libertad</p>
+                <button class="btn-leer" onclick="toggleDesc(this)">Leer más</button>
+                <div class="state-desc">
+                    <p>Una experiencia de movimiento continuo a través de secuencias simples encadenadas que aportan energía y nos permiten soltar el control por unos minutos.</p>
+                    <p>FLUIR busca conectar con una sensación dinámica y natural.</p>
+                </div>
+            </div>
+            <div class="state-card" style="--card-accent:#A08070">
+                <div class="state-num">04</div>
+                <h3>HABITAR</h3>
+                <p class="phrase">"Hoy elijo habitar mi cuerpo de forma consciente."</p>
+                <p class="feel">Presencia · Pertenencia · Plenitud</p>
+                <button class="btn-leer" onclick="toggleDesc(this)">Leer más</button>
+                <div class="state-desc">
+                    <p>Esta última experiencia propone un espacio de integración desde la presencia y conexión.</p>
+                    <p>Movimientos respirados y sostenidos que nos permiten reconocer qué sucede en nuestro cuerpo cuando le damos tiempo y espacio para ser.</p>
+                    <p>Un momento ideal para cuando necesites volver a vos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how" id="como-funciona">
+        <div class="how-inner">
+            <h2>Cómo funciona</h2>
+            <div class="path">
+                <div class="step-wrap">
+                    <div class="step">
+                        <div class="step-icon">1</div>
+                        <h4>Comenzá hoy</h4>
+                        <p>Adquirí el programa de forma simple a través de Mercado Pago.</p>
+                    </div>
+                </div>
+                <div class="step-wrap">
+                    <div class="step">
+                        <div class="step-icon">2</div>
+                        <h4>Ingresá a HABITAR</h4>
+                        <p>Recibí acceso inmediato al recorrido a través de Telegram o WhatsApp.</p>
+                    </div>
+                </div>
+                <div class="step-wrap">
+                    <div class="step">
+                        <div class="step-icon">3</div>
+                        <h4>Volvé a tu cuerpo</h4>
+                        <p>Explorá cada experiencia según cómo te sientas y lo que necesites ese día.</p>
+                    </div>
+                </div>
+            </div>
+            <p class="highlight">¡Podés ver las experiencias las veces que quieras!</p>
+        </div>
+    </section>
+
+    <section class="pricing" id="precio">
+        <h2>$29.000 ARS</h2>
+        <p class="pricing-sub">Promo lanzamiento</p>
+        <p class="pricing-reg">Valor regular: $45.000</p>
+        <ul class="pricing-features">
+            <li><span class="check">✓</span> Cuatro experiencias guiadas de movimiento consciente.</li>
+            <li><span class="check">✓</span> Preguntas de inicio y cierre para conectar con lo que sientas en cada experiencia.</li>
+            <li><span class="check">✓</span> Acceso ilimitado a todo el material.</li>
+            <li><span class="check">✓</span> Playlist de Spotify de regalo con música pensada para acompañar tus momentos de pausa y conexión.</li>
+        </ul>
+        <a href="https://mpago.li/29UE9Le" class="btn btn-dark btn-large" target="_blank" style="margin-top:24px">Comprar con Mercado Pago</a>
+    </section>
+
+    <section class="about" id="acerca">
+        <div class="about-inner">
+            <div class="about-img">
+                <img src="I.jpg" alt="Sobre mí">
+            </div>
+            <div class="about-text" id="aboutText">
+                <h2>Sobre mí y el origen de HABITAR</h2>
+                <p>Mi nombre es Flor. Soy bailarina de tango, ex estudiante de la Universidad Nacional de las Artes e instructora de pilates.</p>
+                <p class="more">Mi recorrido a través de la danza y distintas formaciones en pilates, corrección postural y trabajo corporal consciente, hoy me brindan las herramientas para acompañarte en este primer proyecto: MOTioN.</p>
+                <p class="more">Hace tiempo que comencé a notar, en personas atravesadas por la exigencia, el cansancio y el ritmo acelerado del día a día, un patrón que se repetía constantemente: cuerpos activos, pero profundamente desconectados de sí mismos.</p>
+                <p class="more">Entonces entendí que la conexión con el cuerpo va mucho más allá de cumplir una rutina de ejercicios sin presencia ni conexión.</p>
+                <p class="more">Y así es como nace HABITAR: desde la búsqueda personal y profesional de crear un espacio más humano y amable, donde el cuerpo, la respiración y la presencia nos permitan recuperar el vínculo con nosotros mismos.</p>
+                <span class="btn-read" onclick="document.getElementById('aboutText').classList.toggle('expanded');this.textContent=document.getElementById('aboutText').classList.contains('expanded')?'Leer menos':'Leer más'">Leer más</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="feedback" id="feedback" style="padding:64px 24px;max-width:600px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:32px;">
+            <h2 style="font-size:32px;font-weight:300;color:var(--text);margin-bottom:8px;">¿Qué te pareció el recorrido?</h2>
+            <p style="font-size:15px;color:var(--text-light);">Tu opinión ayuda a que cada experiencia sea mejor.</p>
+        </div>
+        <div style="text-align:center;margin-bottom:28px;">
+            <p style="font-size:14px;color:var(--text-muted);margin-bottom:12px;">Calificá tu experiencia</p>
+            <div style="display:flex;justify-content:center;gap:8px;font-size:36px;">
+                <span style="cursor:pointer;transition:.2s;" onclick="rate(1)" onmouseenter="hoverRate(1)" onmouseleave="resetRate()">🍃</span>
+                <span style="cursor:pointer;transition:.2s;" onclick="rate(2)" onmouseenter="hoverRate(2)" onmouseleave="resetRate()">🍃</span>
+                <span style="cursor:pointer;transition:.2s;" onclick="rate(3)" onmouseenter="hoverRate(3)" onmouseleave="resetRate()">🍃</span>
+                <span style="cursor:pointer;transition:.2s;" onclick="rate(4)" onmouseenter="hoverRate(4)" onmouseleave="resetRate()">🍃</span>
+                <span style="cursor:pointer;transition:.2s;" onclick="rate(5)" onmouseenter="hoverRate(5)" onmouseleave="resetRate()">🍃</span>
+            </div>
+            <p id="rateLabel" style="font-size:13px;color:var(--olive);margin-top:8px;min-height:18px;font-weight:600;"></p>
+        </div>
+        <textarea id="fbComment" placeholder="Contame qué sentiste o qué podría mejorar... (opcional)" style="width:100%;min-height:100px;background:var(--white);border:1.5px solid var(--beige-dark);border-radius:var(--radius-sm);padding:14px;font-family:var(--font);font-size:14px;color:var(--text);resize:none;outline:none;margin-bottom:16px;"></textarea>
+        <button class="btn btn-primary" onclick="submitFeedback()" style="border:none;">Enviar devolución</button>
+        <p id="fbThanks" style="text-align:center;margin-top:16px;font-size:14px;color:var(--olive);font-weight:600;opacity:0;transition:opacity .4s;">¡Gracias por tu devolución! 🌿</p>
+    </section>
+
+    <footer id="empezar">
+        <p class="cta-title">Tu cuerpo te está esperando</p>
+        <div class="cta-btns">
+            <a href="https://mpago.li/29UE9Le" class="btn btn-primary btn-large" target="_blank">Comprar con Mercado Pago</a>
+            <a href="https://t.me/pilates_courses_bot" class="btn btn-dark btn-large" target="_blank">Telegram</a>
+            <a href="https://wa.me/5491132787456?text=%C2%A1Hola!+Quisiera+info+sobre+HABITAR" class="btn btn-outline btn-large" target="_blank">WhatsApp</a>
+        </div>
+        <p class="note">MOTiON — Movimiento que te habita</p>
+        <p style="margin-top:14px;font-size:13px;color:var(--text-muted);">Seguime en Instagram</p>
+        <a href="https://www.instagram.com/motion.moviento.consciente?igsh=MTl3bTB4aTFlc2V6MQ==" target="_blank" style="font-size:14px;color:var(--olive);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:6px;margin-top:4px;">
+            📷 @motion.movimiento.consciente
+        </a>
+    </footer>
+    <script>
+    // Leer mas en cada experiencia
+    function toggleDesc(btn) {
+        var desc = btn.nextElementSibling;
+        var isExpanded = desc.classList.contains('expanded');
+        document.querySelectorAll('.state-desc.expanded').forEach(function(d){ d.classList.remove('expanded'); d.previousElementSibling.textContent='Leer más'; });
+        if (!isExpanded) { desc.classList.add('expanded'); btn.textContent='Leer menos'; }
+    }
+
+    // Feedback rating
+    var currentRate = 0;
+    var hoverRateVal = 0;
+    var labels = ['','Podría mejorar','Está bien','Buena','Muy buena','¡Increíble!'];
+    function rate(n) {
+        currentRate = n;
+        updateStars();
+        document.getElementById('rateLabel').textContent = labels[n];
+    }
+    function hoverRate(n) {
+        hoverRateVal = n;
+        updateStars();
+        document.getElementById('rateLabel').textContent = labels[n];
+    }
+    function resetRate() {
+        hoverRateVal = 0;
+        updateStars();
+        document.getElementById('rateLabel').textContent = currentRate ? labels[currentRate] : '';
+    }
+    function updateStars() {
+        var stars = document.querySelectorAll('#feedback span[onclick^="rate"]');
+        var val = hoverRateVal || currentRate;
+        stars.forEach(function(s,i){
+            s.style.filter = (i < val) ? 'none' : 'grayscale(100%) opacity(0.3)';
+        });
+    }
+    function submitFeedback() {
+        var comment = document.getElementById('fbComment').value.trim();
+        var thanks = document.getElementById('fbThanks');
+        if (!currentRate && !comment) { alert('Dejá al menos una calificación o un comentario.'); return; }
+        thanks.style.opacity = '1';
+        setTimeout(function(){ thanks.style.opacity = '0'; }, 5000);
+        // Datos listos para enviar a backend
+        var payload = {action:'feedback',rating:currentRate,comment:comment,date:new Date().toISOString()};
+        if (window.Telegram && Telegram.WebApp && Telegram.WebApp.sendData) {
+            Telegram.WebApp.sendData(JSON.stringify(payload));
+        }
+        currentRate = 0;
+        document.getElementById('fbComment').value = '';
+        resetRate();
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>MOTiON – HABITAR</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root {
+            --bg: #F5F0EB; --card: #EDE7E0; --white: #FAF7F4; --text: #3A322A;
+            --text-light: #6B6058; --text-muted: #9A8E85; --olive: #8B9A6E; --olive-dark: #6B7A55;
+            --sand: #C4A882; --terracotta: #D4956A; --brown: #A08070; --beige: #D4C5B9; --beige-dark: #B8A898;
+            --radius: 18px; --radius-sm: 12px; --radius-big: 24px;
+            --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        html,body{height:100%;overflow:hidden}
+        body{
+            font-family:var(--font);background:var(--bg);color:var(--text);
+            -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;
+            display:flex;flex-direction:column;
+        }
+
+        .header{
+            padding:12px 18px;display:flex;align-items:center;gap:10px;
+            background:var(--bg);flex-shrink:0;z-index:10;border-bottom:1px solid var(--beige);
+        }
+        .header-title{font-size:17px;font-weight:600;flex:1}
+
+        .screens{
+            flex:1;overflow-y:auto;overflow-x:hidden;
+            -webkit-overflow-scrolling:touch;padding:18px;
+            scroll-behavior:smooth;
+        }
+        .screen{display:none;animation:fadeIn .3s ease}
+        .screen.active{display:block}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+        /* ── HOME ── */
+        .welcome{margin-bottom:20px;text-align:center}
+        .welcome-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:100px;background:var(--card);font-size:11px;font-weight:600;color:var(--text-light);margin-bottom:16px}
+        .welcome-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--olive)}
+        .welcome h1{font-size:28px;font-weight:300;letter-spacing:-1px;margin-bottom:4px}
+        .welcome p{font-size:14px;color:var(--text-light);margin-bottom:18px}
+        .welcome .sub{font-size:12px;color:var(--text-muted);letter-spacing:.5px;margin-bottom:8px}
+
+        .progress-bar-wrap{background:var(--card);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:20px;display:flex;align-items:center;gap:12px}
+        .progress-fill-wrap{flex:1;height:8px;background:var(--beige);border-radius:4px;overflow:hidden}
+        .progress-fill{height:100%;background:var(--olive);border-radius:4px;transition:width .6s ease}
+        .progress-text{font-size:13px;font-weight:600;color:var(--olive-dark);min-width:30px;text-align:right}
+
+        .lesson-list{display:flex;flex-direction:column;gap:12px}
+        .lesson-card{
+            background:var(--card);border-radius:var(--radius);padding:18px 16px;
+            display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .25s;
+            border-left:4px solid var(--olive);position:relative
+        }
+        .lesson-card:active{transform:scale(.98);background:#E4DDD5}
+        .lesson-card.completed{opacity:.85}
+        .lesson-card.completed::after{content:'✓';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--olive);font-weight:700}
+        .lesson-num{width:34px;height:34px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--olive-dark);flex-shrink:0}
+        .lesson-card.completed .lesson-num{background:var(--olive);color:#fff}
+        .lesson-info{flex:1;min-width:0}
+        .lesson-name{font-size:16px;font-weight:500}
+        .lesson-desc{font-size:12px;color:var(--text-light);margin-top:2px}
+        .lesson-tags{font-size:10px;padding:3px 8px;border-radius:100px;background:var(--beige);color:var(--text-light);margin-top:4px;display:inline-block}
+
+        /* ── LESSON ── */
+        .lesson-label{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--olive);font-weight:600;margin-bottom:4px}
+        .lesson-ttl{font-size:26px;font-weight:300;letter-spacing:-.5px;margin-bottom:2px}
+        .lesson-sub{font-size:13px;color:var(--text-light);margin-bottom:16px}
+
+        .video-wrap{
+            width:100%;aspect-ratio:16/9;border-radius:var(--radius-big);
+            overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.12);
+            margin-bottom:18px;background:#1a1a1a;position:relative;
+        }
+        .video-wrap iframe{width:100%;height:100%;border:none}
+        .video-overlay{
+            position:absolute;inset:0;z-index:2;cursor:pointer;
+            display:flex;align-items:center;justify-content:center;
+            background:rgba(0,0,0,0.25);
+        }
+        .video-overlay .play-btn{
+            width:64px;height:64px;border-radius:50%;background:rgba(139,154,110,0.9);
+            border:none;font-size:28px;display:flex;align-items:center;justify-content:center;
+            color:#fff;cursor:pointer;transition:all .2s;
+        }
+        .video-overlay .play-btn:active{transform:scale(1.1);background:var(--olive-dark)}
+        .video-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:13px;text-align:center;padding:20px}
+
+        .lesson-text{font-size:14px;color:var(--text-light);line-height:1.7;margin-bottom:16px;white-space:pre-line}
+        .reflection-box{background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:16px}
+        .reflection-box h3{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--olive-dark);margin-bottom:8px;font-weight:600}
+        .reflection-box p{font-size:14px;color:var(--text);line-height:1.6;white-space:pre-line}
+
+        textarea{width:100%;min-height:70px;background:var(--white);border:1.5px solid var(--beige-dark);border-radius:var(--radius-sm);padding:12px;font-family:var(--font);font-size:13px;color:var(--text);resize:none;outline:none;margin-bottom:14px}
+        textarea:focus{border-color:var(--olive)}
+
+        .btn{
+            display:flex;align-items:center;justify-content:center;gap:6px;
+            width:100%;padding:14px;border-radius:var(--radius-sm);font-size:15px;font-weight:600;
+            border:none;cursor:pointer;transition:all .2s;font-family:var(--font);text-decoration:none;
+        }
+        .btn:active{transform:scale(.97)}
+        .btn-primary{background:var(--olive);color:#fff}
+        .btn-primary:active{background:var(--olive-dark)}
+        .btn-success{background:var(--text);color:#fff}
+        .btn-success.done{background:var(--olive);pointer-events:none}
+        .btn-outline{background:transparent;color:var(--text);border:1.5px solid var(--beige-dark)}
+        .btn-wa{background:#25D366;color:#fff}
+        .btn-mp{background:#009EE3;color:#fff}
+        .btn-row{display:flex;gap:10px;margin-top:10px}
+        .btn-row .btn{flex:1}
+
+        .confetti-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:100}
+        .confetti-piece{position:absolute;width:8px;height:8px;border-radius:2px;animation:cf 1.4s ease-out forwards}
+        @keyframes cf{0%{transform:translateY(-80px) rotate(0);opacity:1}100%{transform:translateY(100vh) rotate(600deg);opacity:0}}
+    </style>
+</head>
+<body>
+    <div class="confetti-container" id="confetti"></div>
+
+    <div class="header">
+        <span>🕊️</span><span class="header-title" id="hdrTitle">HABITAR</span>
+    </div>
+
+    <div class="screens" id="screens">
+        <!-- HOME -->
+        <div class="screen active" id="screenHome">
+            <div class="welcome">
+                <div class="welcome-badge"><span class="dot"></span>4 experiencias</div>
+                <h1>Volvé a conectar con tu cuerpo</h1>
+                <p class="sub">~motion.con.flor</p>
+                <p>Un recorrido de cuatro experiencias para que vuelvas a conectar con tu cuerpo.</p>
+            </div>
+            <div class="progress-bar-wrap" id="miniProgress">
+                <span style="font-size:20px">🌿</span>
+                <div class="progress-fill-wrap"><div class="progress-fill" id="barMini" style="width:0%"></div></div>
+                <span class="progress-text" id="txtMini">0/4</span>
+            </div>
+            <div class="lesson-list" id="lessonList"></div>
+        </div>
+
+        <!-- LESSON -->
+        <div class="screen" id="screenLesson">
+            <div class="lesson-label" id="lblN">Experiencia 1</div>
+            <div class="lesson-ttl" id="lblTitle">PAUSAR</div>
+            <div class="lesson-sub" id="lblSub">En la pausa también existe movimiento.</div>
+            <div class="video-wrap" id="vidWrap">
+                <div class="video-placeholder">🎬 Cargando video...</div>
+            </div>
+            <div class="lesson-text" id="lblIntro"></div>
+            <div class="reflection-box">
+                <h3>🌿 Reflexión</h3>
+                <p id="lblRefl"></p>
+            </div>
+            <textarea id="refInput" placeholder="Escribí tus sensaciones... (opcional)"></textarea>
+            <button class="btn btn-success" id="btnDone" onclick="completeCurrent()">✅ Marcar como completado</button>
+            <div class="btn-row" id="btnRowNext" hidden>
+                <button class="btn btn-primary" onclick="nextLesson()">✨ Siguiente →</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+// ── TELEGRAM ──
+const tg = window.Telegram?.WebApp;
+if (tg) { tg.ready(); tg.expand(); }
+
+// ── DATA ──
+const lessons = [
+    { id:1, title:'PAUSAR', subtitle:'En la pausa también existe movimiento.', duration:'22 min',
+      intro:'El cuerpo habla cuando hacemos silencio.\n\nEn esta primera experiencia, nos detenemos. Sin prisa, sin exigencia. Solo observar lo que ya está acá.\n\nNo hay nada que hacer. Solo estar.',
+      reflection:'Después de esta pausa...\n\n¿Qué sensación queda en tu cuerpo ahora?\n¿Hubo un momento en que te costó quedarte quieta?',
+      video:'fYJSY1ErPU4', color:'#8B9A6E', feel:'Calma · Quietud · Escucha' },
+    { id:2, title:'LIBERAR', subtitle:'No todo lo que sostengo me pertenece.', duration:'25 min',
+      intro:'Cuánto cargamos sin darnos cuenta.\n\nEsta experiencia es para soltar. Movimientos suaves que abren espacio donde había tensión. Dejar ir lo que ya no es necesario.\n\nTu cuerpo sabe soltar. Solo necesita permiso.',
+      reflection:'Después de soltar...\n\n¿Sentís alguna parte más liviana?\n¿Dónde estaba acumulada la tensión sin que lo notaras?',
+      video:'nWs_dkFTKHk', color:'#C4A882', feel:'Alivio · Expansión · Suavidad' },
+    { id:3, title:'FLUIR', subtitle:'¿Qué ritmo adoptaría mi cuerpo si me permito soltar el control?', duration:'28 min',
+      intro:'Ahora que hay espacio, el movimiento encuentra su curso natural.\n\nEn FLUIR entramos en un ritmo propio. Sin forzar, sin imitar. Movimientos que nacen del centro y se expanden.\n\nDejá que el cuerpo te lleve.',
+      reflection:'Después de fluir...\n\n¿En qué momento sentiste que tu cuerpo se movía solo?\n¿Apareció alguna resistencia? ¿Qué hiciste con ella?',
+      video:'fojD7KyKJck', color:'#D4956A', feel:'Liviandad · Ritmo · Libertad' },
+    { id:4, title:'HABITAR', subtitle:'El cuerpo como hogar, no como proyecto.', duration:'30 min',
+      intro:'Has llegado.\n\nPAUSASTE. SOLTASTE. FLUISTE.\n\nAhora HABITAR es la integración de todo. Una práctica para quedarte. Para sentir que tu cuerpo no es un proyecto, es un hogar.\n\nEsta experiencia no termina cuando termina la clase. Se queda con vos.',
+      reflection:'Después de habitar...\n\n¿Cómo se siente estar en tu cuerpo ahora?\nSi tu cuerpo pudiera decirte algo, ¿qué te diría?',
+      video:'', color:'#A08070', feel:'Presencia · Pertenencia · Plenitud' },
+];
+
+let curId = null;
+
+// ── STORAGE ──
+function gp(){ try{ return JSON.parse(localStorage.motion||'{"c":[],"n":1}') }catch(e){ return {c:[],n:1} }}
+function sp(p){ localStorage.motion=JSON.stringify(p) }
+function isDone(id){ return gp().c.includes(id) }
+// All lessons unlocked from start
+function locked(id){ return false; }
+
+// ── RENDER ──
+function renderHome(){
+    const p=gp();
+    document.getElementById('lessonList').innerHTML=lessons.map(l=>{
+        let cls='lesson-card';
+        if(isDone(l.id)) cls+=' completed';
+        return `<div class="${cls}" onclick="showLesson(${l.id})">
+            <div class="lesson-num">${isDone(l.id)?'✓':'0'+l.id}</div>
+            <div class="lesson-info">
+                <div class="lesson-name">${l.title}</div>
+                <div class="lesson-desc">${l.subtitle}</div>
+                <span class="lesson-tags">${l.feel}</span>
+            </div>
+        </div>`;
+    }).join('');
+    updateBars();
+}
+
+function updateBars(){
+    const p=gp(); const pct=Math.round(p.c.length/4*100);
+    document.getElementById('barMini').style.width=pct+'%';
+    document.getElementById('txtMini').textContent=p.c.length+'/4';
+}
+
+// ── NAV ──
+function showScreen(name){
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    document.getElementById('screen'+name.charAt(0).toUpperCase()+name.slice(1)).classList.add('active');
+    document.getElementById('screens').scrollTop=0;
+    if(name==='home'){ renderHome(); document.getElementById('hdrTitle').textContent='HABITAR'; }
+}
+function goHome(){ showScreen('home'); }
+
+// ── LESSON ──
+function showLesson(id){
+    curId=id;
+    const l=lessons.find(x=>x.id===id); if(!l)return;
+    document.getElementById('lblN').textContent='Experiencia '+l.id;
+    document.getElementById('lblTitle').textContent=l.title;
+    document.getElementById('lblSub').textContent=l.subtitle;
+    document.getElementById('lblIntro').textContent=l.intro;
+    document.getElementById('lblRefl').textContent=l.reflection;
+    document.getElementById('hdrTitle').textContent=l.title;
+    document.getElementById('refInput').value='';
+
+    // video
+    const vw=document.getElementById('vidWrap');
+    if(l.video){
+        vw.innerHTML=`<iframe src="https://www.youtube.com/embed/${l.video}?rel=0&modestbranding=1&controls=1&disablekb=1&playsinline=1" allow="autoplay" allowfullscreen></iframe><div class="video-overlay" onclick="this.remove()"><div class="play-btn">▶</div></div>`;
+    } else {
+        vw.innerHTML=`<div class="video-placeholder">🎬 ${l.title} · ${l.duration}<br><small>Video próximamente</small></div>`;
+    }
+
+    // buttons
+    const bd=document.getElementById('btnDone');
+    const rn=document.getElementById('btnRowNext');
+    if(isDone(id)){
+        bd.textContent='✅ Completado'; bd.className='btn btn-success done';
+        rn.hidden=id>=4;
+    } else {
+        bd.textContent='✅ Marcar como completado'; bd.className='btn btn-success';
+        rn.hidden=true;
+    }
+    showScreen('lesson');
+}
+
+function completeCurrent(){
+    if(!curId||isDone(curId))return;
+    const p=gp(); p.c.push(curId); p.c=[...new Set(p.c)].sort(); p.n=Math.min(5,Math.max(p.n,curId+1)); sp(p);
+
+    document.getElementById('btnDone').textContent='✅ Completado';
+    document.getElementById('btnDone').className='btn btn-success done';
+    document.getElementById('btnRowNext').hidden=curId>=4;
+    updateBars();
+
+    if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+    spawnConfetti();
+
+    // send to backend
+    const refText=document.getElementById('refInput').value;
+    if(tg) tg.sendData(JSON.stringify({action:'complete_lesson',lesson_id:curId,title:lessons.find(l=>l.id===curId)?.title,reflection:refText}));
+}
+
+function nextLesson(){ if(curId&&curId<4) showLesson(curId+1); }
+
+// ── CONFETTI ──
+function spawnConfetti(){
+    const c=document.getElementById('confetti'),cols=['#8B9A6E','#C4A882','#D4956A','#A08070','#D4C5B9'];
+    for(let i=0;i<35;i++){
+        const el=document.createElement('div'); el.className='confetti-piece';
+        el.style.left=Math.random()*100+'%';
+        el.style.background=cols[Math.floor(Math.random()*cols.length)];
+        el.style.animationDelay=Math.random()*.5+'s';
+        el.style.width=(5+Math.random()*8)+'px'; el.style.height=el.style.width;
+        c.appendChild(el); setTimeout(()=>el.remove(),1800);
+    }
+}
+
+// ── INIT ──
+renderHome();
+showScreen('home');
+</script>
+</body>
+</html>

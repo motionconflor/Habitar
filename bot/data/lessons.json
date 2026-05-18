@@ -1,0 +1,46 @@
+[
+    {
+        "id": 1,
+        "title": "PAUSAR",
+        "subtitle": "En la pausa también existe movimiento.",
+        "video_url": "https://player.vimeo.com/video/PAUSAR_PLACEHOLDER",
+        "duration": "22 min",
+        "intro": "El cuerpo habla cuando hacemos silencio.\n\nEn esta primera experiencia, nos detenemos. Sin prisa, sin exigencia. Solo observar lo que ya está acá.\n\nNo hay nada que hacer. Solo estar.",
+        "reflection": "Después de esta pausa...\n\n¿Qué sensación queda en tu cuerpo ahora?\n¿Hubo un momento en que te costó quedarte quieta?",
+        "completion": "PAUSAR completado. La calma ya está en vos.\n\nCuando quieras, el próximo estado te espera: LIBERAR.",
+        "tags": ["calma", "quietud", "escucha"]
+    },
+    {
+        "id": 2,
+        "title": "LIBERAR",
+        "subtitle": "No todo lo que sostengo me pertenece.",
+        "video_url": "https://player.vimeo.com/video/LIBERAR_PLACEHOLDER",
+        "duration": "25 min",
+        "intro": "Cuánto cargamos sin darnos cuenta.\n\nEsta experiencia es para soltar. Movimientos suaves que abren espacio donde había tensión. Dejar ir lo que ya no es necesario.\n\nTu cuerpo sabe soltar. Solo necesita permiso.",
+        "reflection": "Después de soltar...\n\n¿Sentís alguna parte más liviana?\n¿Dónde estaba acumulada la tensión sin que lo notaras?",
+        "completion": "LIBERAR completado. Hay más espacio en vos ahora.\n\nEl siguiente estado te invita a moverte: FLUIR.",
+        "tags": ["alivio", "expansión", "suavidad"]
+    },
+    {
+        "id": 3,
+        "title": "FLUIR",
+        "subtitle": "¿Qué ritmo adoptaría mi cuerpo si me permito soltar el control?",
+        "video_url": "https://player.vimeo.com/video/FLUIR_PLACEHOLDER",
+        "duration": "28 min",
+        "intro": "Ahora que hay espacio, el movimiento encuentra su curso natural.\n\nEn FLUIR entramos en un ritmo propio. Sin forzar, sin imitar. Movimientos que nacen del centro y se expanden.\n\nDejá que el cuerpo te lleve.",
+        "reflection": "Después de fluir...\n\n¿En qué momento sentiste que tu cuerpo se movía solo?\n¿Apareció alguna resistencia? ¿Qué hiciste con ella?",
+        "completion": "FLUIR completado. Tu cuerpo encontró su ritmo.\n\nSolo queda un estado: HABITAR.",
+        "tags": ["liviandad", "ritmo", "libertad"]
+    },
+    {
+        "id": 4,
+        "title": "HABITAR",
+        "subtitle": "El cuerpo como hogar, no como proyecto.",
+        "video_url": "https://player.vimeo.com/video/HABITAR_PLACEHOLDER",
+        "duration": "30 min",
+        "intro": "Has llegado.\n\nPAUSASTE. SOLTASTE. FLUISTE.\n\nAhora HABITAR es la integración de todo. Una práctica para quedarte. Para sentir que tu cuerpo no es un proyecto, es un hogar.\n\nEsta experiencia no termina cuando termina la clase. Se queda con vos.",
+        "reflection": "Después de habitar...\n\n¿Cómo se siente estar en tu cuerpo ahora?\nSi tu cuerpo pudiera decirte algo, ¿qué te diría?",
+        "completion": "🕊️ HABITAR completado.\n\nLos cuatro estados viven en vos ahora.\n\nPAUSAR, LIBERAR, FLUIR, HABITAR.\n\nNo es un destino. Es un camino que siempre podés volver a recorrer.",
+        "tags": ["presencia", "pertenencia", "plenitud"]
+    }
+]
