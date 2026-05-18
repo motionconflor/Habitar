@@ -38,8 +38,8 @@
         /* ── HERO ── */
         .hero { padding: 40px 24px 56px; text-align: center; max-width: 740px; margin: 0 auto; }
         .hero-logo { margin-bottom: 20px; }
-        .hero-logo img { width: 120px; height: 120px; object-fit: cover; border-radius: 50%; }
-        .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 100px; background: var(--off-white); font-size: 13px; font-weight: 600; color: var(--text-light); margin-bottom: 16px; }
+        .hero-logo img { width: 160px; height: 160px; object-fit: cover; border-radius: 50%; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px; border-radius: 100px; background: var(--off-white); font-size: 15px; font-weight: 600; color: var(--text-light); margin-bottom: 16px; }
         .hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--olive); }
         .hero h1 { font-size: clamp(32px, 7vw, 56px); font-weight: 300; line-height: 1.1; letter-spacing: -1px; margin-bottom: 16px; }
         .hero h1 strong { font-weight: 500; }
@@ -136,6 +136,16 @@
         .btn-read { display: inline-block; margin-top: 8px; font-size: 14px; font-weight: 600; color: var(--olive); cursor: pointer; text-decoration: underline; }
         @media (max-width: 700px) { .about-inner { flex-direction: column; text-align: center; } .about-img { flex: 0 0 auto; max-width: 240px; margin: 0 auto; } }
 
+        /* ── INSTAGRAM SOCIAL ── */
+        .insta-social { padding: 32px 24px 56px; text-align: center; background: var(--off-white); }
+        .insta-social p { font-size: 16px; color: var(--text); font-weight: 500; margin-bottom: 12px; }
+        .insta-social a {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-size: 20px; color: var(--olive); text-decoration: none;
+            font-weight: 600; transition: color .2s;
+        }
+        .insta-social a:hover { color: var(--olive-dark); }
+
         /* ── FOOTER ── */
         footer { padding: 48px 24px; text-align: center; }
         footer .cta-title { font-size: 28px; font-weight: 300; margin-bottom: 24px; }
@@ -154,7 +164,7 @@
 </head>
 <body>
     <nav class="nav">
-        <a href="#" class="nav-logo" onclick="return false" style="text-decoration:none;color:var(--text);font-size:22px;font-weight:600;letter-spacing:-0.3px;">MOTiON</a>
+        <a href="#" class="nav-logo" onclick="return false" style="text-decoration:none;"><img src="logo.jpg" alt="MOTiON" style="width:36px;height:36px;border-radius:50%;object-fit:cover;"></a>
         <ul class="nav-links">
             <li><a href="#programa">Programa</a></li>
             <li><a href="#como-funciona">Cómo funciona</a></li>
@@ -165,6 +175,7 @@
     </nav>
 
     <section class="hero">
+        <div class="hero-logo"><img src="logo.jpg" alt="MOTiON HABITAR"></div>
         <div class="hero-badge"><span class="dot"></span>HABITAR</div>
         <h1>Volvé a conectar con tu cuerpo</h1>
         <p>Cuatro experiencias pensadas para encontrar calma, presencia y movimiento sin exigencias.</p>
@@ -287,6 +298,13 @@
         </div>
     </section>
 
+    <section class="insta-social">
+        <p>Seguime en Instagram</p>
+        <a href="https://www.instagram.com/motion.moviento.consciente?igsh=MTl3bTB4aTFlc2V6MQ==" target="_blank">
+            📷 @motion.movimiento.consciente
+        </a>
+    </section>
+
     <section class="feedback" id="feedback" style="padding:64px 24px;max-width:600px;margin:0 auto;">
         <div style="text-align:center;margin-bottom:32px;">
             <h2 style="font-size:32px;font-weight:300;color:var(--text);margin-bottom:8px;">¿Qué te pareció el recorrido?</h2>
@@ -309,17 +327,13 @@
     </section>
 
     <footer id="empezar">
-        <p class="cta-title">Tu cuerpo te está esperando</p>
+        <p class="cta-title">Tu cuerpo te espera</p>
         <div class="cta-btns">
-            <a href="https://mpago.la/2Ghk3Vm" class="btn btn-primary btn-large" target="_blank">Comprar con Mercado Pago</a>
+            <a href="https://t.me/pilates_courses_bot" class="btn btn-primary btn-large" target="_blank">Toca para ingresar</a>
             <a href="https://t.me/pilates_courses_bot" class="btn btn-dark btn-large" target="_blank">Telegram</a>
             <a href="https://wa.me/5491132787456?text=%C2%A1Hola!+Quisiera+info+sobre+HABITAR" class="btn btn-outline btn-large" target="_blank">WhatsApp</a>
         </div>
-        <p class="note">MOTiON — Movimiento que te habita</p>
-        <p style="margin-top:14px;font-size:13px;color:var(--text-muted);">Seguime en Instagram</p>
-        <a href="https://www.instagram.com/motion.moviento.consciente?igsh=MTl3bTB4aTFlc2V6MQ==" target="_blank" style="font-size:14px;color:var(--olive);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:6px;margin-top:4px;">
-            📷 @motion.movimiento.consciente
-        </a>
+        <p class="note">MOTiON — Movimiento consciente</p>
     </footer>
     <script>
     // Leer mas en cada experiencia
